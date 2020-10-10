@@ -1,4 +1,3 @@
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import plot_confusion_matrix
 from lightgbm import LGBMClassifier
 import matplotlib.pyplot as plt
@@ -14,18 +13,18 @@ y_test = np.genfromtxt("data/test_labels.csv")
 
 
 # Fit a model
-depth = 50
-# clf = RandomForestClassifier(max_depth=depth)
 clf = LGBMClassifier()
-clf.fit(X_train,y_train)
+clf.fit(X_train, y_train)
 
 acc = clf.score(X_test, y_test)
 print(acc)
 with open("metrics.txt", 'w') as outfile:
-        outfile.write("Accuracy: " + str(acc) + "\n")
-
+    outfile.write("Accuracy: " + str(acc) + "\n")
 
 # Plot it
-disp = plot_confusion_matrix(clf, X_test, y_test, normalize='true',cmap=plt.cm.Blues)
+disp = plot_confusion_matrix(
+    clf,
+    X_test, y_test,
+    normalize='true', cmap=plt.cm.Blues
+)
 plt.savefig('confusion_matrix.png')
-
